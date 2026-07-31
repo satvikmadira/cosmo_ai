@@ -1,3 +1,4 @@
+
 # 🌌 Cosmo AI — Your All-in-One AI Assistant
 
 > One API key. Infinite capability. A premium, production-grade AI workspace — not just another chatbot.
@@ -140,3 +141,4 @@ cosmo-ai/
 ## 🔐 Environment variables
 
 See `backend/.env.example`. At minimum for a demo: `SECRET_KEY`, `ENCRYPTION_KEY`, `DATABASE_URL`, `REDIS_URL`. No AI provider key goes in `.env` — that's entered per-user, encrypted, through the UI, by design.
+
