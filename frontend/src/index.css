@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2E3036 transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #2E3036;
+  border-radius: 999px;
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-graphite/60 backdrop-blur-xl border border-graphite-border rounded-2xl shadow-glass;
+  }
+  .glass-input {
+    @apply bg-obsidian/80 border border-graphite-border rounded-xl px-3 py-2 text-sm text-pearl
+           placeholder:text-mist focus:outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/40
+           transition-colors;
+  }
+  .gold-btn {
+    @apply bg-gold-gradient text-void font-display font-semibold rounded-xl px-4 py-2
+           shadow-gold hover:brightness-110 active:brightness-95 transition-all duration-200
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none;
+  }
+  .ghost-btn {
+    @apply border border-graphite-border rounded-xl px-4 py-2 text-mist hover:text-pearl
+           hover:border-gold/40 transition-colors text-sm;
+  }
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-mist hover:text-pearl
+           hover:bg-graphite-light/70 cursor-pointer transition-all duration-150;
+  }
+  .sidebar-item.active {
+    @apply text-gold bg-graphite-light/90 border border-gold/20;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.msg-in {
+  animation: fadeInUp 0.25s ease-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.dot-1 { animation: blink 1.2s infinite ease-in-out; }
+.dot-2 { animation: blink 1.2s infinite ease-in-out 0.2s; }
+.dot-3 { animation: blink 1.2s infinite ease-in-out 0.4s; }
