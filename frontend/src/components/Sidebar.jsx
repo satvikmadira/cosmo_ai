@@ -40,6 +40,7 @@ export default function Sidebar({
   const [keyStatus, setKeyStatus] = useState(null); // "valid" | "invalid" | null
   const [ollamaAvailable, setOllamaAvailable] = useState(false);
   const [useLocal, setUseLocal] = useState(user?.use_local_ollama ?? false);
+  const [provider, setProvider] = useState(user?.ai_provider || "anthropic");
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -51,8 +52,8 @@ export default function Sidebar({
     setKeyStatus(null);
     try {
       await api.put("/auth/ai-config", {
-        provider: "anthropic",
-        model: "claude-sonnet-4-6",
+        provider,
+        model: provider === "groq" ? "llama-3.3-70b-versatile" : "claude-sonnet-4-6",
         api_key: apiKey,
         use_local_ollama: useLocal,
       });
@@ -91,6 +92,14 @@ export default function Sidebar({
         <div className="flex items-center gap-2 mb-2 text-mist text-xs uppercase tracking-wider">
           <Cpu size={14} /> AI Engine
         </div>
+        <select
+          value={provider}
+          onChange={(e) => setProvider(e.target.value)}
+          className="glass-input w-full mb-2"
+        >
+          <option value="anthropic">Anthropic</option>
+          <option value="groq">Groq</option>
+        </select>
         <div className="relative">
           <input
             type={showKey ? "text" : "password"}
