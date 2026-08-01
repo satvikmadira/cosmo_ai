@@ -1,3 +1,4 @@
+from app.services.ai.groq_adapter import GroqAdapter
 from app.core.config import settings
 from app.core.security import decrypt_api_key
 from app.models.user import User
@@ -32,9 +33,8 @@ async def get_adapter_for_user(user: User) -> AIProviderAdapter:
 
     if user.ai_provider == "anthropic":
         return AnthropicAdapter(api_key=api_key, model=user.ai_model or settings.DEFAULT_MODEL)
-
-    # Extensible: add more providers (OpenAI, Gemini, etc.) here later without
-    # changing anything above this function or in the chat/RAG layers.
+    if user.ai_provider == "groq":
+        return GroqAdapter(api_key=api_key, model=user.ai_model or "llama-3.3-70b-versatile")
     raise ValueError(f"Unsupported provider: {user.ai_provider}")
 
 
