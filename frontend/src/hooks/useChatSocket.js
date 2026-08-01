@@ -18,8 +18,10 @@ export function useChatSocket({ conversationId, onConversationStarted }) {
     const token = localStorage.getItem("cosmo_access_token");
     if (!token) return;
 
-    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-    const socket = new WebSocket(`${protocol}://${window.location.host}/ws/chat?token=${token}`);
+    const apiUrl = import.meta.env.VITE_API_URL || "";
+    const backendHost = apiUrl.replace(/^https?:\/\//, "").replace(/\/api\/?$/, "");
+    const protocol = apiUrl.startsWith("https") ? "wss" : "ws";
+    const socket = new WebSocket(`${protocol}://${backendHost}/ws/chat?token=${token}`);
     socketRef.current = socket;
 
     socket.onmessage = (event) => {
